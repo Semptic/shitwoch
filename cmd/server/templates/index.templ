@@ -1,0 +1,14 @@
+package view
+
+templ Index(isShitwoch bool) {
+  @Base("Shitwoch") {
+    <h1>Is it shitwoch yet?</h1>
+    <div>
+      if isShitwoch { 
+        <p>Yes</p> 
+      } else { 
+        <p>No</p> 
+      }
+    </div>
+  }
+}
