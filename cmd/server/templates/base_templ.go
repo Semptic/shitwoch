@@ -36,7 +36,7 @@ func Base(title string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><meta name=\"robots\" content=\"noindex, nofollow\"><meta name=\"language\" content=\"English\"></head><body>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><meta name=\"robots\" content=\"noindex, nofollow\"><meta name=\"language\" content=\"English\"><style>\n        body{ \n          background-color: black;\n        }\n\n        h1 {\n          color: orange;\n          font-size: xx-large;\n        }\n\n        p {\n          color: white;\n          font-size: xxx-large;\n        }\n\n        div{\n          display: flex;\n          flex-direction: column;\n          justify-content: center;\n          align-items: center;\n          vertical-align: middle;\n          height: 100%;\n        }\n      </style></head><body>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
