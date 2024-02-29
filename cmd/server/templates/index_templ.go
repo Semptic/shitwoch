@@ -60,7 +60,7 @@ func Index(isShitwoch bool) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div><h1>Is it shitwoch yet?</h1><div hx-get=\"/is_shitwoch\" hx-trigger=\"load, every 5m\" hx-include=\"[name=&#39;timezone&#39;]\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"container\"><h1>Is it shitwoch yet?</h1><div hx-get=\"/is_shitwoch\" hx-trigger=\"load, every 5m\" hx-include=\"[name=&#39;timezone&#39;]\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
