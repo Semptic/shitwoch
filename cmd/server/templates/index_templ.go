@@ -41,7 +41,7 @@ func Shitwoch(isShitwoch bool) templ.Component {
 	})
 }
 
-func Index() templ.Component {
+func Index(isShitwoch bool) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -60,7 +60,15 @@ func Index() templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div><h1>Is it shitwoch yet?</h1><div hx-get=\"/is_shitwoch\" hx-trigger=\"load, every 5m\" hx-include=\"[name=&#39;timezone&#39;]\"><p>Calculating...</p></div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div><h1>Is it shitwoch yet?</h1><div hx-get=\"/is_shitwoch\" hx-trigger=\"load, every 5m\" hx-include=\"[name=&#39;timezone&#39;]\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = Shitwoch(isShitwoch).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

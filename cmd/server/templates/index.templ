@@ -8,12 +8,12 @@ templ Shitwoch(isShitwoch bool) {
 	}
 }
 
-templ Index() {
+templ Index(isShitwoch bool) {
 	@Base("Shitwoch") {
 		<div>
 			<h1>Is it shitwoch yet?</h1>
       <div hx-get="/is_shitwoch" hx-trigger="load, every 5m" hx-include="[name='timezone']">
-        <p>Calculating...</p>
+        @Shitwoch(isShitwoch)
       </div>
 		</div>
 	}

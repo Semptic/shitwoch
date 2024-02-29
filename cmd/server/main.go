@@ -56,7 +56,7 @@ func ShitwochHandler(ctx echo.Context) error {
 }
 
 func IndexHandler(ctx echo.Context) error {
-	return Render(ctx, http.StatusOK, view.Index())
+	return Render(ctx, http.StatusOK, view.Index(isShitwoch("UTC")))
 }
 
 func Render(ctx echo.Context, statusCode int, t templ.Component) error {
