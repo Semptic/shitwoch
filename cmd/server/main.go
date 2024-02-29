@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-  "time"
+	"time"
 
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
@@ -31,16 +31,32 @@ func main() {
 	app.Use(middleware.Recover())
 
 	app.GET("/", IndexHandler)
+	app.GET("/is_shitwoch", ShitwochHandler)
 
-	app.Logger.Fatal(app.Start(fmt.Sprintf("%s:%s", host, port)))
+	app.Logger.Fatal(app.Start(fmt.Sprintf(":%s", port)))
+}
+
+func isShitwoch(timezone string) bool {
+	if timezone != "" {
+		loc, _ := time.LoadLocation(timezone)
+		weekday := time.Now().In(loc).Weekday()
+
+		return weekday == time.Wednesday
+	}
+
+	weekday := time.Now().Weekday()
+
+	return weekday == time.Wednesday
+}
+
+func ShitwochHandler(ctx echo.Context) error {
+	timezone := ctx.QueryParam("timezone")
+
+	return Render(ctx, http.StatusOK, view.Shitwoch(isShitwoch(timezone)))
 }
 
 func IndexHandler(ctx echo.Context) error {
-  weekday := time.Now().Weekday() 
-
-  wednesday := weekday == time.Wednesday
-
-	return Render(ctx, http.StatusOK, view.Index(wednesday))
+	return Render(ctx, http.StatusOK, view.Index())
 }
 
 func Render(ctx echo.Context, statusCode int, t templ.Component) error {

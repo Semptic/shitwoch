@@ -1,14 +1,20 @@
 package view
 
-templ Index(isShitwoch bool) {
-  @Base("Shitwoch") {
-    <div>
-      <h1>Is it shitwoch yet?</h1>
-      if isShitwoch { 
-        <p>Yes</p> 
-      } else { 
-        <p>No</p> 
-      }
-    </div>
-  }
+templ Shitwoch(isShitwoch bool) {
+	if isShitwoch {
+		<p>Yes</p>
+	} else {
+		<p>No</p>
+	}
+}
+
+templ Index() {
+	@Base("Shitwoch") {
+		<div>
+			<h1>Is it shitwoch yet?</h1>
+      <div hx-get="/is_shitwoch" hx-trigger="load, every 5m" hx-include="[name='timezone']">
+        <p>Calculating...</p>
+      </div>
+		</div>
+	}
 }

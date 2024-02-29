@@ -9,6 +9,7 @@ templ Base(title string) {
 			<meta name="viewport" content="width=device-width, initial-scale=1"/>
 			<meta name="robots" content="noindex, nofollow"/>
 			<meta name="language" content="English"/>
+      <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
       <style>
         body{ 
           background-color: black;
@@ -33,9 +34,26 @@ templ Base(title string) {
           height: 100%;
         }
       </style>
+      <script>
+        function set_timezone() {
+          const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+          body = document.getElementsByTagName('body')[0];
+
+          timezone_input = document.createElement('input');
+          timezone_input.name = 'timezone';
+          timezone_input.type = 'hidden';
+          timezone_input.value = timezone;
+
+          body.appendChild(timezone_input);
+        }
+      </script>
 		</head>
 		<body>
 			{ children... }
+      <script>
+        set_timezone();
+      </script>
 		</body>
 	</html>
 }

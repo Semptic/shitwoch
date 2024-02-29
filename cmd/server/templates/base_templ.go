@@ -36,7 +36,7 @@ func Base(title string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><meta name=\"robots\" content=\"noindex, nofollow\"><meta name=\"language\" content=\"English\"><style>\n        body{ \n          background-color: black;\n        }\n\n        h1 {\n          color: orange;\n          font-size: xx-large;\n        }\n\n        p {\n          color: white;\n          font-size: xxx-large;\n        }\n\n        div{\n          display: flex;\n          flex-direction: column;\n          justify-content: center;\n          align-items: center;\n          vertical-align: middle;\n          height: 100%;\n        }\n      </style></head><body>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><meta name=\"robots\" content=\"noindex, nofollow\"><meta name=\"language\" content=\"English\"><script src=\"https://unpkg.com/htmx.org@1.9.10\" integrity=\"sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC\" crossorigin=\"anonymous\"></script><style>\n        body{ \n          background-color: black;\n        }\n\n        h1 {\n          color: orange;\n          font-size: xx-large;\n        }\n\n        p {\n          color: white;\n          font-size: xxx-large;\n        }\n\n        div{\n          display: flex;\n          flex-direction: column;\n          justify-content: center;\n          align-items: center;\n          vertical-align: middle;\n          height: 100%;\n        }\n      </style><script>\n        function set_timezone() {\n          const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;\n\n          body = document.getElementsByTagName('body')[0];\n\n          timezone_input = document.createElement('input');\n          timezone_input.name = 'timezone';\n          timezone_input.type = 'hidden';\n          timezone_input.value = timezone;\n\n          body.appendChild(timezone_input);\n        }\n      </script></head><body>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -44,7 +44,7 @@ func Base(title string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<script>\n        set_timezone();\n      </script></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
