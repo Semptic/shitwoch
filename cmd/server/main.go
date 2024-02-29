@@ -1,7 +1,9 @@
 package main
 
 import (
+  "net"
 	"fmt"
+  "log"
 	"net/http"
 	"os"
 	"time"
@@ -12,6 +14,10 @@ import (
 
 	"github.com/Semptic/shitwoch/cmd/server/templates"
 )
+
+type State struct {
+  db *GeoIpDb
+}
 
 func main() {
 	host := os.Getenv("IP")
@@ -25,12 +31,24 @@ func main() {
 		port = "4000"
 	}
 
+  db, err := NewDb()
+
+  if err != nil {
+    log.Panic(err)
+  }
+
+  defer db.Close()
+
+  state := State{db: db}
+
 	app := echo.New()
+
+  // app.IPExtractor = echo.ExtractIPDirect()
 
 	app.Use(middleware.Logger())
 	app.Use(middleware.Recover())
 
-	app.GET("/", IndexHandler)
+	app.GET("/", state.IndexHandler)
 	app.GET("/is_shitwoch", ShitwochHandler)
 
 	app.Logger.Fatal(app.Start(fmt.Sprintf(":%s", port)))
@@ -55,8 +73,23 @@ func ShitwochHandler(ctx echo.Context) error {
 	return Render(ctx, http.StatusOK, view.Shitwoch(isShitwoch(timezone)))
 }
 
-func IndexHandler(ctx echo.Context) error {
-	return Render(ctx, http.StatusOK, view.Index(isShitwoch("UTC")))
+func (state *State) IndexHandler(ctx echo.Context) error {
+  ipString := ctx.RealIP()
+  ip := net.ParseIP(ipString)
+
+  timezone, err := state.db.TimezoneFromIp(ip)
+
+  if err != nil {
+    log.Println(err)
+  }
+
+  if timezone == "" {
+    timezone = "UTC"
+  }
+
+  log.Println("Timezone:", timezone)
+
+	return Render(ctx, http.StatusOK, view.Index(isShitwoch(timezone)))
 }
 
 func Render(ctx echo.Context, statusCode int, t templ.Component) error {
